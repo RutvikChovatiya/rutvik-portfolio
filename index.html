@@ -579,101 +579,111 @@
         .arsenal-section {
             padding: 120px 5%;
             text-align: center;
-        }
-
-        .arsenal-robot {
-            width: 40px;
-            height: 40px;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.1rem;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-        }
-
-        .arsenal-title {
-            font-family: var(--font-head);
-            font-size: clamp(2.5rem, 4vw, 3.5rem);
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
-
-        .arsenal-title span {
-            font-family: var(--font-italic);
-            font-style: italic;
-            color: var(--accent-blue);
-            font-weight: 600;
-        }
-
-        .arsenal-desc {
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto 60px;
-            line-height: 1.6;
-            font-size: 1rem;
-        }
-
-        .arsenal-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            max-width: 860px;
-            margin: 0 auto;
-        }
-
-        .ic-box {
-            width: 85px;
-            height: 85px;
-            background: #060606;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 24px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
         }
 
-        .ic-box:hover {
-            transform: translateY(-12px) scale(1.15);
-            z-index: 10;
-            border-color: var(--glow-color);
-            background: #111;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 25px var(--glow-color);
-        }
-
-        .ic-inner {
+        .arsenal-container {
+            position: relative;
             width: 100%;
-            height: 100%;
+            max-width: 600px;
+            height: 600px;
+            margin: 0 auto;
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .ic-box:hover .ic-inner {
-            transform: scale(1.15);
+        /* Central Hexagon */
+        .central-hexagon {
+            position: absolute;
+            width: 250px;
+            height: 280px;
+            background: transparent;
+            border: 4px solid var(--accent-blue);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 5;
+            box-shadow: 0 0 50px rgba(90, 140, 255, 0.3);
+            filter: drop-shadow(0 0 20px rgba(90, 140, 255, 0.5));
         }
 
-        /* Image sizing & styling to fit perfectly inside the box */
-        .ic-inner img {
-            width: 48px;
-            height: 48px;
-            object-fit: contain;
+        .central-hexagon::after {
+            content: '';
+            position: absolute;
+            inset: 10px;
+            border: 2px solid rgba(90, 140, 255, 0.2);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
         }
 
-        .rounded-img {
-            border-radius: 12px;
-        }
-
-        .circle-img {
+        /* Orbital Icons */
+        .orbit-icon {
+            position: absolute;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
+            background: #060606;
+            border: 2px solid var(--glow-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 10;
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        .orbit-icon img {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+
+        .orbit-icon:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 30px var(--glow-color);
+        }
+
+        /* Position icons in circle */
+        .oi-1 { top: 0%; left: 50%; transform: translate(-50%, -50%); } /* Top - Ai */
+        .oi-2 { top: 25%; right: 0%; transform: translate(50%, -50%); } /* Top Right - Gamma */
+        .oi-3 { bottom: 25%; right: 0%; transform: translate(50%, 50%); } /* Bottom Right - Figma */
+        .oi-4 { bottom: 0%; left: 50%; transform: translate(-50%, 50%); } /* Bottom - Canva */
+        .oi-5 { bottom: 25%; left: 0%; transform: translate(-50%, 50%); } /* Bottom Left - Gemini */
+        .oi-6 { top: 25%; left: 0%; transform: translate(-50%, -50%); } /* Top Left - PS */
+
+        .orbit-line {
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .arsenal-container {
+                height: 450px;
+                max-width: 350px;
+            }
+            .central-hexagon {
+                width: 180px;
+                height: 200px;
+            }
+            .orbit-icon {
+                width: 60px;
+                height: 60px;
+            }
+            .orbit-icon img {
+                width: 35px;
+                height: 35px;
+            }
+            .orbit-line {
+                width: 320px;
+                height: 320px;
+            }
         }
 
         /* =========================================
@@ -924,7 +934,7 @@
                 </div>
             </section>
 
-            <!-- 4. MY ARSENAL SECTION (DIRECT ONLINE IMAGES) -->
+            <!-- 4. MY ARSENAL SECTION (ORBITAL DESIGN) -->
             <section class="arsenal-section" id="arsenal">
                 <div class="gs-reveal">
                     <h2 class="arsenal-title">My <span>Arsenal.</span></h2>
@@ -932,80 +942,41 @@
                         daily to accelerate workflows and craft premium digital products with precision.</p>
                 </div>
 
-                <div class="arsenal-grid gs-reveal">
-
-                    <!-- 1. Figma -->
-                    <div class="ic-box hover-target gs-tool" style="--glow-color: #f24e1e;">
-                        <div class="ic-inner">
-                            <img src="Figma.jpeg" alt="Figma" style="border-radius: 12px; width: 60px; height: 60px;">
-                        </div>
+                <div class="arsenal-container gs-reveal">
+                    <div class="orbit-line"></div>
+                    <div class="central-hexagon">
+                        <div style="font-family: var(--font-head); font-size: 1.5rem; font-weight: 800; color: var(--accent-blue);">DESIGN<br>STACK</div>
                     </div>
 
-                    <!-- 2. Photoshop -->
-                    <div class="ic-box hover-target gs-tool" style="--glow-color: #31a8ff;">
-                        <div class="ic-inner">
-                            <img src="Photoshop.jpeg" alt="Photoshop" style="border-radius: 12px; width: 60px; height: 60px;">
-                        </div>
+                    <!-- Top - Ai -->
+                    <div class="orbit-icon oi-1 hover-target" style="--glow-color: #ff9a00;">
+                        <img src="Ai.jpeg" alt="Illustrator">
                     </div>
 
-                    <!-- 3. Illustrator -->
-                    <div class="ic-box hover-target gs-tool" style="--glow-color: #ff9a00;">
-                        <div class="ic-inner">
-                            <img src="Ai.jpeg" alt="Illustrator" style="border-radius: 12px; width: 60px; height: 60px;">
-                        </div>
+                    <!-- Top Right - Gamma (Rocket/AI) -->
+                    <div class="orbit-icon oi-2 hover-target" style="--glow-color: #ff512f;">
+                        <img src="Gamma.jpeg" alt="Gamma">
                     </div>
 
-                    <!-- 4. Canva -->
-                    <div class="ic-box hover-target gs-tool" style="--glow-color: #00C4CC;">
-                        <div class="ic-inner">
-                            <img src="Canva.jpeg" alt="Canva" style="border-radius: 50%; width: 60px; height: 60px;">
-                        </div>
+                    <!-- Bottom Right - Figma -->
+                    <div class="orbit-icon oi-3 hover-target" style="--glow-color: #f24e1e;">
+                        <img src="Figma.jpeg" alt="Figma">
                     </div>
 
-                    <!-- 5. ChatGPT -->
-                    <div class="ic-box hover-target gs-tool" style="--glow-color: #10a37f;">
-                        <div class="ic-inner">
-                            <img src="Chatgpt.jpeg" alt="ChatGPT" style="border-radius: 12px; width: 60px; height: 60px;">
-                        </div>
+                    <!-- Bottom - Canva -->
+                    <div class="orbit-icon oi-4 hover-target" style="--glow-color: #00C4CC;">
+                        <img src="Canva.jpeg" alt="Canva">
                     </div>
 
-                    <!-- 6. Claude -->
-                    <div class="ic-box hover-target gs-tool" style="--glow-color: #d97757;">
-                        <div class="ic-inner">
-                            <img src="https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://claude.ai&size=128" alt="Claude" style="border-radius: 12px; width: 60px; height: 60px;">
-                        </div>
+                    <!-- Bottom Left - Gemini (G) -->
+                    <div class="orbit-icon oi-5 hover-target" style="--glow-color: #8b5cf6;">
+                        <img src="Gemini.jpeg" alt="Gemini">
                     </div>
 
-                    <!-- 7. Gemini -->
-                    <div class="ic-box hover-target gs-tool" style="--glow-color: #8b5cf6;">
-                        <div class="ic-inner">
-                            <img src="Gemini.jpeg" alt="Gemini" style="border-radius: 12px; width: 60px; height: 60px;">
-                        </div>
+                    <!-- Top Left - PS -->
+                    <div class="orbit-icon oi-6 hover-target" style="--glow-color: #31a8ff;">
+                        <img src="Photoshop.jpeg" alt="Photoshop">
                     </div>
-
-                    <!-- 8. Gamma -->
-                    <div class="ic-box hover-target gs-tool" style="--glow-color: #ff512f;">
-                        <div class="ic-inner">
-                            <img src="Gamma.jpeg" alt="Gamma" style="border-radius: 12px; width: 60px; height: 60px;">
-                        </div>
-                    </div>
-
-                    <!-- Row 2 -->
-                    <!-- 9. Midjourney -->
-                    <div class="ic-box hover-target gs-tool" style="--glow-color: #ffffff;">
-                        <div class="ic-inner">
-                            <img src="Stich.jpeg" alt="Midjourney" style="border-radius: 50%; width: 60px; height: 60px;">
-                        </div>
-                    </div>
-
-                    <!-- 10. Copilot -->
-                    <div class="ic-box hover-target gs-tool" style="--glow-color: #00a4ef;">
-                        <div class="ic-inner">
-                            <img src="https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://copilot.microsoft.com&size=128"
-                                style="border-radius: 50%; width: 60px; height: 60px;" alt="Copilot">
-                        </div>
-                    </div>
-
                 </div>
             </section>
 
